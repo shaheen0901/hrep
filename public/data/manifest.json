@@ -3,9 +3,9 @@
   "variable": "Tropospheric NO2 vertical column, daily county mean (TEMPO L3 V04)",
   "units": "10^15 molecules/cm^2",
   "units_short": "10¹⁵ molec/cm²",
-  "start_date": "2025-06-01",
-  "end_date": "2025-06-30",
-  "last_updated": "2026-10-07",
+  "start_date": "2023-08-02",
+  "end_date": "2026-08-31",
+  "last_updated": "2026-10-08",
   "states": [
     "AL",
     "AR",
