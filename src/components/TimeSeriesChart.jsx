@@ -55,7 +55,7 @@ export default function TimeSeriesChart({ series, start, end, units }) {
           autosize: true,
           height: 380,
           margin: { l: 64, r: 16, t: 12, b: 48 },
-          font: { family: 'Public Sans, system-ui, sans-serif', size: 13, color: '#2b1748' },
+          font: { family: 'Public Sans, system-ui, sans-serif', size: 13, color: '#461D7C' },
           paper_bgcolor: 'rgba(0,0,0,0)',
           plot_bgcolor: 'rgba(0,0,0,0)',
           hovermode: 'x unified',

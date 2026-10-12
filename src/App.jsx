@@ -67,6 +67,11 @@ export default function App() {
     .map((s) => ({ ...s, records: stateData[s.state].get(s.fips) ?? [] }))
   const waiting = selected.length > series.length
 
+  function clearSelection() {
+    setSelected([])
+    setNotice(null)
+  }
+
   function toggleCounty(f) {
     setNotice(null)
     const fips = f.id
@@ -163,7 +168,7 @@ export default function App() {
               end={range.end}
               loading={waiting}
               onRemove={(fips) => setSelected((sel) => sel.filter((s) => s.fips !== fips))}
-              onClear={() => setSelected([])}
+              onClear={clearSelection}
             />
           </div>
           <DownloadPanel
@@ -176,7 +181,18 @@ export default function App() {
         </aside>
 
         <section className="chart-panel" aria-label="Daily time series">
-          <h2>Daily NO₂</h2>
+          <div className="panel-head">
+            <h2>Daily NO₂</h2>
+            <button
+              type="button"
+              className="btn secondary clear-btn"
+              onClick={clearSelection}
+              disabled={selected.length === 0}
+              title="Remove all counties from the map selection and the chart"
+            >
+              Clear chart and selection
+            </button>
+          </div>
           <Suspense fallback={<p className="muted">Loading chart…</p>}>
             <TimeSeriesChart series={series} start={range.start} end={range.end} units={units} />
           </Suspense>

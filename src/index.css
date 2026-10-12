@@ -2,11 +2,11 @@
   /* LSU Health New Orleans palette */
   --lsu-purple: #461d7c;   /* LSU Purple, PMS 268 */
   --lsu-gold: #fdd023;     /* LSU Gold, PMS 123 */
-  --purple-light: #6b45a0; /* globe color in the GeoSENSE wordmark */
+  --hover-dark: #000000;   /* black, LSUHNO manual */
 
   --bg: #f4f2f8;
   --panel: #ffffff;
-  --ink: #2b1748;
+  --ink: #461d7c;           /* official purple; only LSUHNO manual colors used */
   --ink-2: #5c5470;
   --line: #d9d3e3;
   --accent: var(--lsu-purple);
@@ -122,7 +122,7 @@ input[type='date'], select {
   border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer;
 }
 .chip.active { background: var(--lsu-purple); color: #fff; border-color: var(--lsu-purple); }
-.chip:hover:not(.active) { border-color: var(--purple-light); }
+.chip:hover:not(.active) { border-color: var(--hover-dark); }
 
 .btn {
   font: inherit; font-size: 0.92rem; font-weight: 600; cursor: pointer;
@@ -130,7 +130,7 @@ input[type='date'], select {
   border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
 }
 .btn.secondary { background: #fff; color: var(--accent); }
-.btn:not(:disabled):hover { background: var(--purple-light); border-color: var(--purple-light); }
+.btn:not(:disabled):hover { background: var(--hover-dark); border-color: var(--hover-dark); }
 .btn.secondary:not(:disabled):hover { background: #f1ecf8; color: var(--lsu-purple); }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
@@ -169,3 +169,8 @@ td { padding: 0.35rem; border-bottom: 1px solid #eef1f3; vertical-align: middle;
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* Chart header with the clear button */
+.panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 0.5rem; }
+.panel-head h2 { margin: 0; }
+.clear-btn { width: auto; padding: 0.4rem 0.85rem; font-size: 0.88rem; }
