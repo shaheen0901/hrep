@@ -1,7 +1,7 @@
 import Papa from 'papaparse'
 
-// Every data path is built from BASE_URL so the app works locally (/hrep/),
-// on GitHub Pages (/hrep/) and later on another server (change `base` in vite.config.js).
+// Every data path is built from BASE_URL. With base "./" in vite.config.js it is relative,
+// so the same build works at /hrep/, at /geosense/tools/hrep/ and on a custom domain.
 const BASE = import.meta.env.BASE_URL
 
 async function fetchOk(path) {

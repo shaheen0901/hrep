@@ -34,3 +34,44 @@ jobs:
           path: ./dist
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Copy the same build into the lab website at tools/hrep/, so HREP opens under the lab domain.
+  # One-time setup: create a fine-grained GitHub token with "Contents: Read and write" on
+  # shaheen0901/geosense and save it in this repo as the secret GEOSENSE_DEPLOY_TOKEN.
+  # Without the secret this job is skipped and only the standalone copy above is updated.
+  sync-to-website:
+    runs-on: ubuntu-latest
+    env:
+      TOKEN: ${{ secrets.GEOSENSE_DEPLOY_TOKEN }}
+    steps:
+      - name: Check for token
+        id: check
+        run: echo "ok=${{ env.TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.ok == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.check.outputs.ok == 'true'
+        with:
+          node-version: lts/*
+          cache: npm
+      - if: steps.check.outputs.ok == 'true'
+        run: npm ci && npm run build
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.ok == 'true'
+        with:
+          repository: shaheen0901/geosense
+          token: ${{ env.TOKEN }}
+          path: website
+      - name: Commit build to website/tools/hrep
+        if: steps.check.outputs.ok == 'true'
+        run: |
+          rm -rf website/tools/hrep
+          mkdir -p website/tools
+          cp -r dist website/tools/hrep
+          cd website
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add tools/hrep
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "Update HREP build from shaheen0901/hrep@${GITHUB_SHA::7}"
+          git push

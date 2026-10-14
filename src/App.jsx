@@ -4,13 +4,19 @@ import CountyMap from './components/CountyMap'
 import SelectedTable from './components/SelectedTable'
 import DateRange from './components/DateRange'
 import DownloadPanel from './components/DownloadPanel'
-import GeoSenseLogo from './components/GeoSenseLogo'
+import ToolHeader from './shared/ToolHeader'
+import ToolFooter from './shared/ToolFooter'
+import AboutPanel from './shared/AboutPanel'
 import { loadJSON, loadMonthly, loadStateDaily, mapValues, shiftDays } from './utils/data'
 import { quantileBreaks, SERIES, MAX_SELECTED } from './utils/colors'
 import { stateOf } from './utils/states'
 
 // Plotly is large, so the chart loads separately and the map appears first.
 const TimeSeriesChart = lazy(() => import('./components/TimeSeriesChart'))
+
+// Edit when HREP has a paper or DOI to cite.
+const CITATION =
+  'Rahman, M. S., GeoSENSE Lab (2026). HREP: Health-Ready Exposure Platform, county-level NO₂ from NASA TEMPO [web tool]. LSU Health Sciences Center New Orleans.'
 
 export default function App() {
   const [manifest, setManifest] = useState(null)
@@ -113,21 +119,13 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="masthead">
-        <div className="brand">
-          <GeoSenseLogo />
-          <span className="brand-divider" aria-hidden="true" />
-          <div>
-            <h1>HREP</h1>
-            <p className="tagline">Health-Ready Exposure Platform: daily county NO₂ from NASA TEMPO</p>
-          </div>
-        </div>
+      <ToolHeader name="HREP" tagline="Health-Ready Exposure Platform: daily county NO₂ from NASA TEMPO">
         <p className="updated">
           Data {manifest.start_date} to {manifest.end_date}
           <br />
           Updated {manifest.last_updated}
         </p>
-      </header>
+      </ToolHeader>
 
       {manifest.synthetic && (
         <p className="banner" role="note">
@@ -199,16 +197,41 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="foot">
+      <AboutPanel>
+        <p>
+          HREP maps daily nitrogen dioxide (NO₂) for every county in the contiguous United States, using
+          tropospheric column observations from NASA&apos;s TEMPO satellite instrument (Level 3, version 4).
+          It is being developed to give public health researchers exposure estimates that are ready to join
+          with county health records.
+        </p>
+        <h3>How the county values are made</h3>
+        <ul>
+          <li>
+            TEMPO pixels are kept only when the main data quality flag is 0, effective cloud fraction is 0.2 or
+            less, and solar zenith angle is 70° or less.
+          </li>
+          <li>Kept pixels are averaged over each day (06:00 to 06:00 UTC), then averaged over each county.</li>
+          <li>County-days with valid data over less than 25% of the county area are left out.</li>
+          <li>The map shows the mean of monthly county values over the selected date range.</li>
+        </ul>
+        <h3>What the numbers mean</h3>
+        <p>
+          Values are tropospheric NO₂ column density in {units}: the amount of NO₂ in the whole air column
+          above the ground, not the concentration at breathing height. Columns and surface concentrations are
+          related but not the same, especially near large sources.
+        </p>
+        <p>
+          Data are updated monthly. Processing code and file formats are documented in the{' '}
+          <a href="https://github.com/shaheen0901/hrep#readme">HREP repository</a>.
+        </p>
+      </AboutPanel>
+
+      <ToolFooter citation={CITATION}>
         <p>
           Values are tropospheric NO₂ column density from TEMPO Level 3, averaged to counties. They describe the
           whole air column, not ground-level concentration.
         </p>
-        <p>
-          Developed by the <a href="https://shaheen0901.github.io/geosense/">GeoSENSE Lab</a>, LSU Health Sciences
-          Center New Orleans.
-        </p>
-      </footer>
+      </ToolFooter>
     </div>
   )
 }

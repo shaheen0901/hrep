@@ -42,10 +42,15 @@ code { font-size: 0.9em; background: var(--panel); padding: 0 0.25em; border-rad
 
 /* Header: LSU purple band with a gold rule */
 .masthead {
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  padding: 1rem 1.4rem; background: var(--lsu-purple); color: #ffffff;
+  padding: 0.7rem 1.4rem 1rem; background: var(--lsu-purple); color: #ffffff;
   border-bottom: 5px solid var(--lsu-gold); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
+.masthead-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.back-link {
+  display: inline-block; margin-bottom: 0.6rem; font-size: 0.85rem; font-weight: 600;
+  color: rgba(255, 255, 255, 0.85); text-decoration: none;
+}
+.back-link:hover { color: var(--lsu-gold); text-decoration: underline; }
 .masthead h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: 0.02em; }
 .tagline { margin: 0.15rem 0 0; color: rgba(255, 255, 255, 0.85); }
 .updated { margin: 0; text-align: right; font-size: 0.85rem; color: rgba(255, 255, 255, 0.8); }
@@ -160,9 +165,18 @@ td { padding: 0.35rem; border-bottom: 1px solid #eef1f3; vertical-align: middle;
 .chart-empty { min-height: 200px; display: grid; place-items: center; text-align: center; color: var(--ink-2); border: 1px dashed var(--line); border-radius: var(--radius-sm); padding: 1rem; }
 .chart-empty p { max-width: 44ch; margin: 0; }
 
+/* About and methods panel (shared across tools) */
+.about { margin-top: 1.25rem; background: var(--panel); border-radius: var(--radius-lg); padding: 0.85rem 1.1rem; }
+.about summary { cursor: pointer; font-weight: 700; color: var(--lsu-purple); }
+.about-body { max-width: 80ch; margin-top: 0.6rem; font-size: 0.92rem; }
+.about-body h3 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--lsu-purple); }
+.about-body ul { margin: 0 0 0.5rem; padding-left: 1.2rem; }
+.about-body li { margin-bottom: 0.25rem; }
+
 /* Footer and status */
 .foot { margin-top: 1.6rem; padding-top: 0.8rem; border-top: 1px solid var(--line); font-size: 0.84rem; color: var(--ink-2); max-width: 80ch; }
 .foot p { margin: 0 0 0.35rem; }
+.foot .cite { color: var(--ink); }
 .status { max-width: 60ch; margin: 4rem auto; padding: 0 1rem; }
 .status h1 { font-size: 1.5rem; margin-bottom: 0.6rem; }
 
