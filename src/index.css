@@ -26,6 +26,7 @@
 
 * { box-sizing: border-box; }
 body { margin: 0; }
+html, body { overflow-x: clip; } /* full-width footer band without a sideways scrollbar */
 h1, h2 { margin: 0; line-height: 1.2; }
 h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--lsu-purple); }
 a { color: var(--accent); }
@@ -177,6 +178,20 @@ td { padding: 0.35rem; border-bottom: 1px solid #eef1f3; vertical-align: middle;
 .foot { margin-top: 1.6rem; padding-top: 0.8rem; border-top: 1px solid var(--line); font-size: 0.84rem; color: var(--ink-2); max-width: 80ch; }
 .foot p { margin: 0 0 0.35rem; }
 .foot .cite { color: var(--ink); }
+
+/* Purple band matching the lab website footer; spans the full window width */
+.site-foot {
+  margin: 2rem calc(50% - 50vw) -2rem;
+  background: var(--lsu-purple) url('/contours-dark.svg') 400px 300px / 1500px repeat;
+  color: #e3daee; padding: 2rem 0; font-size: 0.9rem;
+}
+.site-foot-inner {
+  max-width: 72rem; margin: 0 auto; padding: 0 1.5rem;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+}
+.site-foot a { color: #ffffff; }
+.site-foot a:hover { color: var(--lsu-gold); }
+.site-foot :focus-visible { outline-color: var(--lsu-gold); }
 .status { max-width: 60ch; margin: 4rem auto; padding: 0 1rem; }
 .status h1 { font-size: 1.5rem; margin-bottom: 0.6rem; }
 

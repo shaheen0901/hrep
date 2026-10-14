@@ -1,19 +1,29 @@
-import { LAB_EMAIL, LAB_HOME, LAB_NAME, LAB_URL } from './lab'
+import { contactUrl, LAB_FOOTER_NAME } from './lab'
 
-// Shared footer: tool-specific notes (children), how to cite, lab name and contact.
+// Shared footer for GeoSENSE tools.
+// Top: tool-specific notes (children) and how to cite. Bottom: the same purple band as the lab website,
+// with a Contact link to the website's contact section (no email address shown, to limit spam).
 export default function ToolFooter({ citation, children }) {
   return (
-    <footer className="foot">
-      {children}
-      {citation && (
-        <p className="cite">
-          <strong>How to cite:</strong> {citation}
-        </p>
+    <>
+      {(children || citation) && (
+        <div className="foot">
+          {children}
+          {citation && (
+            <p className="cite">
+              <strong>How to cite:</strong> {citation}
+            </p>
+          )}
+        </div>
       )}
-      <p>
-        <a href={LAB_URL}>{LAB_NAME}</a>, {LAB_HOME}. Contact:{' '}
-        <a href={`mailto:${LAB_EMAIL}`}>{LAB_EMAIL}</a>
-      </p>
-    </footer>
+      <footer className="site-foot">
+        <div className="site-foot-inner">
+          <span>
+            &copy; {new Date().getFullYear()} {LAB_FOOTER_NAME}
+          </span>
+          <a href={contactUrl()}>Contact</a>
+        </div>
+      </footer>
+    </>
   )
 }
