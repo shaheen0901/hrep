@@ -74,4 +74,6 @@ jobs:
           git add tools/hrep
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "Update HREP build from shaheen0901/hrep@${GITHUB_SHA::7}"
-          git push
+          # Retry in case another tool's build was pushed to the website at the same moment
+          for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done
+          exit 1
