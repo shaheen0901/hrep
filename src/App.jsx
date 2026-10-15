@@ -221,8 +221,7 @@ export default function App() {
           related but not the same, especially near large sources.
         </p>
         <p>
-          Data are updated monthly. Processing code and file formats are documented in the{' '}
-          <a href="https://github.com/shaheen0901/hrep#readme">HREP repository</a>.
+          Data are updated monthly.
         </p>
       </AboutPanel>
 
